@@ -13,6 +13,21 @@ class PuzzleState:
     def __lt__(self, other):
         return self.cost < other.cost
 
+class DjikstraPuzzleState:
+    def __init__(self, board, parent, move, depth, cost, dist=-1, prev=None):
+        self.board = board
+        self.parent = parent  # Parent state
+        self.move = move  # Move to reach this state
+        self.depth = depth  # Depth in the search tree
+        self.cost = cost  # Cost (depth + heuristic)
+        self.dist = dist
+        self.prev = prev
+        self.parent
+
+    def __lt__(self, other):
+        return self.cost < other.cost
+
+
 """
 todo: create a nice way to display this. images?
 """
@@ -95,6 +110,31 @@ def a_star(start_state):
     return None
 
 # djikstras algorithm
+def djikstra(start_state): # todo: review djikstras!!!!
+    closed_list = set()
+    current_state = DjikstraPuzzleState(start_state, None, None, 0, heuristic(start_state), 0, None)
+
+    while goal_state not in closed_list:
+        if current_state.board == goal_state:
+            return current_state
+        closed_list.add(tuple(current_state.board))
+        blank_pos = current_state.board.index(0)
+
+        for move in moves:
+            if (move == 'U' and blank_pos < 3):  # Invalid move up
+                continue
+            if move == 'D' and blank_pos > 5:  # Invalid move down
+                continue
+            if move == 'L' and blank_pos % 3 == 0:  # Invalid move left
+                continue
+            if move == 'R' and blank_pos % 3 == 2:  # Invalid move right
+                continue
+            new_board = move_tile(current_state.board, move, blank_pos)
+            if tuple(new_board) in closed_list:
+                continue
+            new_state = DjikstraPuzzleState(new_board, current_state, move, current_state.depth+1, current_state.depth + 1 + heuristic(new_board), 1)
+            current_state = new_state
+
 
 # Function to print the solution path
 def print_solution(solution):
