@@ -254,4 +254,4 @@ if __name__ == "__main__":
         run_all(test["state"])
 
         # Pausing between tests
-        time.sleep(1)
+        #time.sleep(1)
