@@ -224,19 +224,19 @@ def run_all(initial_state):
 # Test Cases
 test_cases = [
     {
-        "name": "Easy Case",
+        "name": "Easy Case", # 4 inversions
         "state": [1, 2, 3,
                   4, 0, 5,
                   6, 7, 8]
     },
     {
-        "name": "Medium Case",
+        "name": "Medium Case", # 8 inversions
         "state": [1, 2, 3,
                   5, 6, 0,
                   7, 8, 4]
     },
     {
-        "name": "Unsolvable Case",
+        "name": "Unsolvable Case", # odd number of inversions (1)
         "state": [1, 2, 3,
                   4, 5, 6,
                   8, 7, 0]
